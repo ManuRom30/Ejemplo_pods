@@ -1,0 +1,26 @@
+apiVersion: app/v1
+kind: Deployment
+
+metadata:
+  name: web-deploy
+  labels:
+    app: web-wordpress
+    version: v1
+
+spec:
+  selector:
+    matchLabels:
+      microservices:mysql
+  replicas: 1
+  templates:
+    metadata:
+      labels:
+        app: web-wordpress
+        microservices: mysql
+        version: v1
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:latest
+          ports:
+           - containerPort: 3306    
